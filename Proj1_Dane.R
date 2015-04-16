@@ -11,16 +11,25 @@ astro.lownoise <- read.table("/home/dane/Google Drive/School/Grad Stuff/2015B Sp
 
 # ===== Subset Data =====
 # Subset training data and remove statistical calculations and id number.
-ast.train <- astro.train[c(2:67)]
+# Update: leave class column to determine number of clusters before clustering
+astro.train$class
+n <- which(colnames(astro.train) == "class")
+ast.train <- astro.train[c(2:67, n)]
 
 # There are NAs present, so make a copy and set NA to 0.  This may be a mistake,
 # so we will revisit later.
-ast.train2 <- ast.train
-ast.train2[is.na(ast.train2)] <- 0
+# ast.train2 <- ast.train
+# ast.train2[is.na(ast.train2)] <- 0
 
 # Revisit 2
 # Rather than make NAs zero, what happens when we remove them.
 ast.train4 <- ast.train[complete.cases(ast.train),]
+
+# UPDATE
+# With smaller data set, how many clusters are there now?
+str(ast.train4$class)
+summary(ast.train4$class)
+# Still 25 clusters
 
 # Revisit
 # Columns of zeros are creating problems for PCA. Let's remove them.
@@ -62,9 +71,13 @@ summary(pca.train)
 pam.ast.train3 <- pam(ast.train3, 25, metric = "euclidean", stand = TRUE,
                       keep.diss = FALSE, keep.data = FALSE)
 plot(pam.ast.train3, data = ast.train3)
+pam.ast.train3$clusinfo
 
 # ===== K-means ++ =====
 fit2 <- kmeanspp(ast.train3, 25, start = "random", iter.max = 100, nstart = 10)
 clusplot(ast.train3, fit2$cluster, color=TRUE, shade=TRUE,
          labels=2, lines=0)
 
+# ===== NOTES =====
+# In the clustering, the majority of data has been subsumed into 1 cluster.
+fit2$size
