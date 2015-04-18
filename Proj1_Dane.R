@@ -78,6 +78,19 @@ fit2 <- kmeanspp(ast.train3, 25, start = "random", iter.max = 100, nstart = 10)
 clusplot(ast.train3, fit2$cluster, color=TRUE, shade=TRUE,
          labels=2, lines=0)
 
+# ===== Hierarchical Clustering =====
+# Method = "euclidean","manhattan"
+# *** see https://stat.ethz.ch/R-manual/R-patched/library/stats/html/dist.html for more options
+dist.clust <- dist(ast.train3,method = "euclidean")
+# Method = "complete","single","average"
+# *** see https://stat.ethz.ch/R-manual/R-patched/library/stats/html/hclust.html for more options
+hc<-hclust(dist.clust, method = "complete")
+plot(hc)
+rect.hclust(hc,k=25,border="red")
+# Number of counts within each grouping
+hc.groups<-cutree(hc,k=25)
+table(hc.groups)
+
 # ===== NOTES =====
 # In the clustering, the majority of data has been subsumed into 1 cluster.
 fit2$size
