@@ -48,99 +48,104 @@ astro.train.multi <- astro.train[ astro.train$class %in% multi.star, ]
 # ===== Begin Special Note ===== #
 # Proceed do the very depths of despair for Hierarchical Clustering!
 # Otherwise begin data preparation below
+# k=0: Jump to K-means, etc
+# k=1: Jump to Hierarchical
+k=1
 # ===== End Special Note ===== #
 ####################################################################
 
+if(k==0){
+##
+# ===== Prepare Data =====
 
-# # ===== Prepare Data =====
-# 
-# # Remove Statistical Calculations and Index Number
-# n <- which(colnames(astro.train.pulse) == "class")
-# astro.train.pulse2 <- astro.train.pulse[c(2:67, n)]
-# 
-# astro.train.erupt2 <- astro.train.erupt[c(2:67, n)]
-# 
-# astro.train.multi2 <- astro.train.multi[c(2:67, n)]
-# 
-# 
-# # Remove data with NAs
-# astro.train.pulse2 <- astro.train.pulse2[complete.cases(astro.train.pulse2),]
-# 
-# astro.train.erupt2 <- astro.train.erupt2[complete.cases(astro.train.erupt2),]
-# 
-# astro.train.multi2 <- astro.train.multi2[complete.cases(astro.train.multi2),]
-# 
-# 
-# # Remove columns of zeros and class column
-# astro.train.pulse3 <- astro.train.pulse2[, !sapply(names(astro.train.pulse2), 
-#                         function(col) {all(astro.train.pulse2[,col]==0) | 
-#                         !is.numeric(astro.train.pulse2[,col]) } ) ]
-# 
-# astro.train.erupt3 <- astro.train.erupt2[, !sapply(names(astro.train.erupt2), 
-#                         function(col) {all(astro.train.erupt2[,col]==0) | 
-#                         !is.numeric(astro.train.erupt2[,col]) } ) ]
-# 
-# astro.train.multi3 <- astro.train.multi2[, !sapply(names(astro.train.multi2), 
-#                         function(col) {all(astro.train.multi2[,col]==0) | 
-#                         !is.numeric(astro.train.multi2[,col]) } ) ]
-# 
-# # ===== Begin Special Note ===== #
-# # Jump directly to the bottom for the Hierarchical Clustering!
-# # o/w Proceed with K-means
-# # ===== End Special Note ===== #
-# 
-# # ===== K-means Clustering =====
-# # Note that reducing the data means there are now 12 types in the pulse data
-# # 6 types in the erupt data
-# # 4 types in the multi data
-# 
-# fit.pulse <- kmeans(astro.train.pulse3, 12)
-# clusplot(astro.train.pulse3, fit.pulse$cluster, color=TRUE, shade=TRUE,
-#          labels=2, lines=0)
-# 
-# fit.erupt <- kmeans(astro.train.erupt3, 6)
-# clusplot(astro.train.erupt3, fit.erupt$cluster, color=TRUE, shade=TRUE,
-#          labels=2, lines=0)
-# 
-# fit.multi <- kmeans(astro.train.multi3, 4)
-# clusplot(astro.train.multi3, fit.multi$cluster, color=TRUE, shade=TRUE,
-#          labels=2, lines=0)
-# 
-# 
-# # ===== K-mediods =====
-# pam.pulse <- pam(astro.train.pulse3, 12, metric = "euclidean", stand = TRUE,
-#                       keep.diss = FALSE, keep.data = FALSE)
-# plot(pam.pulse, data = astro.train.pulse3)
-# pam.pulse$clusinfo
-# 
-# pam.erupt <- pam(astro.train.erupt3, 6, metric = "euclidean", stand = TRUE,
-#                  keep.diss = FALSE, keep.data = FALSE)
-# plot(pam.erupt, data = astro.train.erupt3)
-# pam.erupt$clusinfo
-# 
-# pam.multi <- pam(astro.train.multi3, 4, metric = "euclidean", stand = TRUE,
-#                  keep.diss = FALSE, keep.data = FALSE)
-# plot(pam.multi, data = astro.train.multi3)
-# pam.multi$clusinfo
-# 
-# 
-# # ===== K-means ++ =====
-# fit.pulse2 <- kmeanspp(astro.train.pulse3, 12, start = "random", iter.max = 100,
-#                        nstart = 10)
-# clusplot(astro.train.pulse3, fit.pulse2$cluster, color=TRUE, shade=TRUE,
-#          labels=2, lines=0)
-# 
-# fit.erupt2 <- kmeanspp(astro.train.erupt3, 12, start = "random", iter.max = 100,
-#                        nstart = 10)
-# clusplot(astro.train.erupt3, fit.erupt2$cluster, color=TRUE, shade=TRUE,
-#          labels=2, lines=0)
-# 
-# fit.multi2 <- kmeanspp(astro.train.multi3, 12, start = "random", iter.max = 100,
-#                        nstart = 10)
-# clusplot(astro.train.multi3, fit.multi2$cluster, color=TRUE, shade=TRUE,
-#          labels=2, lines=0)
+# Remove Statistical Calculations and Index Number
+n <- which(colnames(astro.train.pulse) == "class")
+astro.train.pulse2 <- astro.train.pulse[c(2:67, n)]
+
+astro.train.erupt2 <- astro.train.erupt[c(2:67, n)]
+
+astro.train.multi2 <- astro.train.multi[c(2:67, n)]
 
 
+# Remove data with NAs
+astro.train.pulse2 <- astro.train.pulse2[complete.cases(astro.train.pulse2),]
+
+astro.train.erupt2 <- astro.train.erupt2[complete.cases(astro.train.erupt2),]
+
+astro.train.multi2 <- astro.train.multi2[complete.cases(astro.train.multi2),]
+
+
+# Remove columns of zeros and class column
+astro.train.pulse3 <- astro.train.pulse2[, !sapply(names(astro.train.pulse2), 
+                        function(col) {all(astro.train.pulse2[,col]==0) | 
+                        !is.numeric(astro.train.pulse2[,col]) } ) ]
+
+astro.train.erupt3 <- astro.train.erupt2[, !sapply(names(astro.train.erupt2), 
+                        function(col) {all(astro.train.erupt2[,col]==0) | 
+                        !is.numeric(astro.train.erupt2[,col]) } ) ]
+
+astro.train.multi3 <- astro.train.multi2[, !sapply(names(astro.train.multi2), 
+                        function(col) {all(astro.train.multi2[,col]==0) | 
+                        !is.numeric(astro.train.multi2[,col]) } ) ]
+
+# ===== Begin Special Note ===== #
+# Jump directly to the bottom for the Hierarchical Clustering!
+# o/w Proceed with K-means
+# ===== End Special Note ===== #
+
+# ===== K-means Clustering =====
+# Note that reducing the data means there are now 12 types in the pulse data
+# 6 types in the erupt data
+# 4 types in the multi data
+
+fit.pulse <- kmeans(astro.train.pulse3, 12)
+clusplot(astro.train.pulse3, fit.pulse$cluster, color=TRUE, shade=TRUE,
+         labels=2, lines=0)
+
+fit.erupt <- kmeans(astro.train.erupt3, 6)
+clusplot(astro.train.erupt3, fit.erupt$cluster, color=TRUE, shade=TRUE,
+         labels=2, lines=0)
+
+fit.multi <- kmeans(astro.train.multi3, 4)
+clusplot(astro.train.multi3, fit.multi$cluster, color=TRUE, shade=TRUE,
+         labels=2, lines=0)
+
+
+# ===== K-mediods =====
+pam.pulse <- pam(astro.train.pulse3, 12, metric = "euclidean", stand = TRUE,
+                      keep.diss = FALSE, keep.data = FALSE)
+plot(pam.pulse, data = astro.train.pulse3)
+pam.pulse$clusinfo
+
+pam.erupt <- pam(astro.train.erupt3, 6, metric = "euclidean", stand = TRUE,
+                 keep.diss = FALSE, keep.data = FALSE)
+plot(pam.erupt, data = astro.train.erupt3)
+pam.erupt$clusinfo
+
+pam.multi <- pam(astro.train.multi3, 4, metric = "euclidean", stand = TRUE,
+                 keep.diss = FALSE, keep.data = FALSE)
+plot(pam.multi, data = astro.train.multi3)
+pam.multi$clusinfo
+
+
+# ===== K-means ++ =====
+fit.pulse2 <- kmeanspp(astro.train.pulse3, 12, start = "random", iter.max = 100,
+                       nstart = 10)
+clusplot(astro.train.pulse3, fit.pulse2$cluster, color=TRUE, shade=TRUE,
+         labels=2, lines=0)
+
+fit.erupt2 <- kmeanspp(astro.train.erupt3, 12, start = "random", iter.max = 100,
+                       nstart = 10)
+clusplot(astro.train.erupt3, fit.erupt2$cluster, color=TRUE, shade=TRUE,
+         labels=2, lines=0)
+
+fit.multi2 <- kmeanspp(astro.train.multi3, 12, start = "random", iter.max = 100,
+                       nstart = 10)
+clusplot(astro.train.multi3, fit.multi2$cluster, color=TRUE, shade=TRUE,
+         labels=2, lines=0)
+
+}else{
+  
 ####################################################################
 # ===== Begin Special Note ===== #
 # Use this data preparation specifically for Hierarchical Clustering!
@@ -149,6 +154,11 @@ astro.train.all<-na.omit(astro.train)
 astro.train.pulse<-na.omit(astro.train.pulse)
 astro.train.erupt<-na.omit(astro.train.erupt)
 astro.train.multi<-na.omit(astro.train.multi)
+# Class Labels
+label.all<-astro.train.all[,87]
+label.pulse<-astro.train.pulse[,87]
+label.erupt<-astro.train.erupt[,87]
+label.multi<-astro.train.multi[,87]
 # Leave-in or Leave-out
 leave.out2<-c(-1,-87)
 ### Two Different Scaling Methods: Compliments of the Heffe! ###
@@ -242,3 +252,20 @@ rect.hclust(hc,k,border="red")
 hc.groups<-cutree(hc,k)
 table(hc.groups)
 
+### Fancy plot comparing the two methods!
+if(j==0){
+  tally<-cbind(label.all,hc.groups)
+}else if(j==1){  
+  tally<-cbind(label.pulse,hc.groups)
+}else if(j==2){
+  tally<-cbind(label.erupt,hc.groups)
+}else{
+  tally<-cbind(label.multi,hc.groups)
+}
+colnames(tally)<-c("True","Clustered")
+tally<-data.frame(tally)
+
+ggplot(tally,aes(x=True,y=Clustered))+
+  geom_point()+theme_bw()
+
+}
