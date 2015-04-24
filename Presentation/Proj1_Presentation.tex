@@ -157,7 +157,7 @@
 % FRAME 9
 %----------------------------------
 \begin{frame}
-	\frametitle{Spectral Clustering Methods}
+	\frametitle{Hierarchical Clustering Methods}
 		\begin{itemize}
 			\item Chose the complete linkage over the single or average linkages
 			\item All 85 explanatory variables were used for hierarchical clustering
@@ -213,69 +213,73 @@ Obs.         	 & 6 & 2 & 12 & 7 & 2 & 1 & 1 & 1 & 1 & 1 & 1 & 3  \\
 %----------------------------------
 % FRAME 11
 %----------------------------------
-\begin{frame}
-	\frametitle{Dendrograms}
-\begin{figure}[h]
-	\begin{center}	
-		\subfigure[All Star types ]{
-		\includegraphics[scale=0.18]{dendro24group.jpeg}}
-		\subfigure[Pulsating Star types only]{
-		\includegraphics[scale=0.18]{dendro14group.jpeg}}
-	\end{center}
-\end{figure} 
-\end{frame}
+	
+	\begin{frame}
+		\frametitle{Hierarchical Clustering Results}
+		\begin{figure}[h]
+			\begin{center}
+				\subfigure[All Star types ]{
+					\includegraphics[scale=0.17]{TvCall25.jpeg}}
+				\subfigure[Pulsating Star types only]{
+					\includegraphics[scale=0.17]{TvCpulse11.jpeg}}
+			\end{center}
+		\end{figure} 
+	\end{frame}
+	
+	%----------------------------------
+	% FRAME 14
+	%----------------------------------
+	
+	\begin{frame}
+		\frametitle{Hierarchical Clustering Results}
+		\begin{figure}[h]
+			\begin{center}	
+				\subfigure[Eruptive Star types only]{
+					\includegraphics[scale=0.17]{TvCerupt.jpeg}}
+				\subfigure[Multi-Star types only]{
+					\includegraphics[scale=0.17]{TvCmulti.jpeg}}
+			\end{center}
+		\end{figure} 
+	\end{frame}
 
-%----------------------------------
-% FRAME 12
-%----------------------------------
-\begin{frame}
-	\frametitle{Dendrograms}
-\begin{figure}[h]
-	\begin{center}	
-		\subfigure[Eruptive Star types only]{
-		\includegraphics[scale=0.17]{dendro6group.jpeg}}
-		\subfigure[Multi-Star types only]{
-		\includegraphics[scale=0.17]{dendro4group.jpeg}}
-	\end{center}
-\end{figure} 
-\end{frame}
 
 %----------------------------------
 % FRAME 13
 %----------------------------------
-\begin{frame}
-	\frametitle{Spectral Clustering Results}
-\begin{figure}[h]
-	\begin{center}	
-		\subfigure[All Star types ]{
-		\includegraphics[scale=0.17]{TvCall25.jpeg}}
-		\subfigure[Pulsating Star types only]{
-		\includegraphics[scale=0.17]{TvCpulse11.jpeg}}
-	\end{center}
-\end{figure} 
-\end{frame}
-
-%----------------------------------
-% FRAME 14
-%----------------------------------
 
 \begin{frame}
-	\frametitle{Spectral Clustering Results}
-\begin{figure}[h]
-	\begin{center}	
-		\subfigure[Eruptive Star types only]{
-		\includegraphics[scale=0.17]{TvCerupt.jpeg}}
-		\subfigure[Multi-Star types only]{
-		\includegraphics[scale=0.17]{TvCmulti.jpeg}}
-	\end{center}
-\end{figure} 
-\end{frame}
+	\frametitle{Spectral Clustering} 
+	\begin{itemize}
+		\item Advantages: \\
+		\begin{itemize}
+			\item Compared to k-means, spectral clustering is better at identifying find clusters that have non-convex boundaries (i.e., a circle within a circle).\\
+		\end{itemize}
 
-%----------------------------------
-% FRAME 15
-%----------------------------------
+	\item  Disadvantages: \\
+		\begin{itemize}
+			\item When computing the similarity matrix for a large number of observations it can become ill-conditioned. \\
+			\item Choosing the correct kernel to measure the connectivity between points. \\
+		\end{itemize}
+\end{itemize}
+\end{frame}
+%------------
+% Frame 14
+%--------------------------------
+\begin{frame}
+	\frametitle{Spectral Clustering Results}	
+\begin{center}
+	\includegraphics[scale=0.35]{spec.png}
+\end{center}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Conclusions and Final Thoughts}
+\begin{itemize}
+\item Our results were not informative.\\
+\item All these methods quickly become computationally expensive and we could consider other resources to use besides our puny laptops (and Dane's 4 year old desktop). \\ 
+\item  Possibly explore different data manipulations and  metrics for the different clustering algorithms.  \\
+\end{itemize}
 \end{frame}
+
+
 \end{document}
