@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {2}Clustering Approaches and Results}{3}
+\contentsline {subsection}{\numberline {2.1}Preparing the Data}{3}
+\contentsline {subsection}{\numberline {2.2}K-means}{3}
+\contentsline {subsection}{\numberline {2.3}K-medoids}{4}
+\contentsline {subsection}{\numberline {2.4}K-means $++$}{4}
+\contentsline {subsection}{\numberline {2.5}Hierarchical Clustering}{5}
+\contentsline {subsection}{\numberline {2.6}Spectral Clustering}{6}
+\contentsline {section}{\numberline {3}Discussion and Future Work}{6}
