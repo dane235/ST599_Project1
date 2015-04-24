@@ -232,10 +232,10 @@ j=0
 # *** see https://stat.ethz.ch/R-manual/R-patched/library/stats/html/dist.html for more options
 if(j==0){
   dist.clust <- dist(astro.train.all4,method = "euclidean")
-  k <- 24
+  k <- 25
 }else if(j==1){  
   dist.clust <- dist(astro.train.pulse4,method = "euclidean")
-  k <- 14
+  k <- 11
 }else if(j==2){
   dist.clust <- dist(astro.train.erupt4,method = "euclidean")
   k <- 6
